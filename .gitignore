@@ -1,0 +1,84 @@
+# =============================================================================
+# .gitignore de Winllama (src/winllama/)
+# Reglas por CARPETA/PATRON, no por archivo individual.
+# Rutas completas relativas a este .gitignore (raiz = src/winllama/).
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 1. Artefactos de build de Rust (target/ en cualquier nivel) - ~3.300 archivos. Regenerables con
+#    `cargo build --release`. NUNCA versionar.
+# -----------------------------------------------------------------------------
+target/
+**/target/
+
+# -----------------------------------------------------------------------------
+# 2. Entorno virtual Python (engine/) - ~6.500 archivos de dependencias
+#    descargadas. Regenerable con `python -m venv .venv` + `pip install -e .`.
+# -----------------------------------------------------------------------------
+engine/.venv/
+engine/venv/
+engine/.virtualenv/
+
+# -----------------------------------------------------------------------------
+# 3. Artefactos de Python (compilados, caches, metadatos de paquete)
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*$py.class
+*.egg-info/
+*.egg
+engine/winllama_engine.egg-info/
+engine/.pytest_cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+build/
+dist/
+*.whl
+
+# -----------------------------------------------------------------------------
+# 4. Caches de herramientas del kit (graphify) - se regeneran con `graphify update`
+# -----------------------------------------------------------------------------
+graphify-out/
+graphify-out/cache/
+
+# -----------------------------------------------------------------------------
+# 5. Logs del daemon y procesos
+# -----------------------------------------------------------------------------
+*.log
+engine/daemon.out.log
+engine/daemon.err.log
+engine/*.log
+
+# -----------------------------------------------------------------------------
+# 6. Cache de modelos y datos de runtime (viven en el perfil del usuario, no aca;
+#    se ignoran por si aparecen localmente)
+# -----------------------------------------------------------------------------
+models/
+*.part
+*.gguf
+*.bin
+
+# -----------------------------------------------------------------------------
+# 7. Constitution runtime (copia que el bootstrap siembra; la fuente es
+#    Documentacion/Winllama/.specify/constitution.md)
+# -----------------------------------------------------------------------------
+.specify/memory/constitution.md
+
+# -----------------------------------------------------------------------------
+# 8. Sistema operativo / editor / temporales
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+tmp/
+temp/
+*.tmp

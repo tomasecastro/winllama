@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "winllama-engine"
+version = "0.1.0"
+description = "Winllama inference daemon: serves OpenVINO GenAI over a local HTTP API (ADR-0004)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Winllama" }]
+keywords = ["winllama", "openvino", "llm", "windows", "inference"]
+dependencies = [
+    "openvino-genai>=2025.0.0",
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "pydantic>=2.6.0",
+    # SR-18: pin exacto verificado en el venv del engine ("pip show
+    # huggingface_hub" -> 2.3.0, T-201).
+    "huggingface_hub==2.3.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "httpx>=0.27.0",
+]
+
+[project.scripts]
+winllama-engine = "winllama_engine.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["winllama_engine*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
